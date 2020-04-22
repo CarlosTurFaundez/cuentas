@@ -1,0 +1,21 @@
+{% extends 'cuentas/base.html' %}
+{% block content%}
+<h6><b>   Nueva transferencia ordinaria: </b> </h6>
+<p></p>
+<form method="post">
+	
+	{{form.as_p}}
+	   {% csrf_token %}
+
+
+<button type="submit" class="btn btn-info">Quiero hacerla</button>
+
+
+</form>
+
+
+
+
+
+
+{% endblock %}

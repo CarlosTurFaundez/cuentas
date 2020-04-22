@@ -1,0 +1,53 @@
+
+{% extends 'cuentas/base.html' %}
+{% load static %}
+
+
+
+
+
+    <p>Bienvenidos.</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+    <meta charset="UTF-8">
+
+
+    <title>Title</title>
+</head>
+<body>
+{% block content%}
+<div class ="container">
+	
+  <div class="alert alert-secondary" role="alert">
+Parece que no te has registrado aún, si deseas hacer uso de la aplicación, "haz click" en el botón de abajo. 
+   
+</div> 
+   
+     <a href=" /register">Registrarte</a></li>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<hr />
+<a href="/logout">Cerrar sesión</a>
+</body>
+</html>
+
+
+
+{% endblock %}

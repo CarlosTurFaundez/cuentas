@@ -1,0 +1,49 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+{% block content%}
+
+
+{{request.user.firstname}} 
+ {%if mis_transferencias%}
+<div class="container"> Movimientos de la cuenta <b>:{{request.user.name}}</b>
+{{request.user.firstname}} 
+{%endif%}
+
+ </table>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Fecha:</th>
+      <th scope="col">Ordenante:</th>
+      <th scope="col">cuenta ordenante:</th>
+      <th scope="col">Beneficiario:</th>
+ 	  <th scope="col">Cuenta de destino:</th>
+      <th scope="col">Importe:</th>
+      <th scope="col">Saldo:</th>
+
+    </tr>
+ {%for transferencia in mis_transferencias%}
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td class="text-right">{{transferencia.fecha}} </td>
+   	  <td class="text-right"> {{transferencia.ordenante.first_name}} 
+   	     	  {{transferencia.ordenante.last_name}} </td>  
+      <td class="text-right">{{transferencia.cuenta_ordenante}}</td>
+      <td class="text-right">{{transferencia.beneficiario.first_name}} {{transferencia.beneficiario.last_name}}</td>
+      <td class="text-right"> {{transferencia.cuenta_beneficiario}}</td>
+      <td class="text-right">{{transferencia.importe}} €</td>
+       <td class="text-right">€</td>
+    </tr>
+ {% endfor %}   
+ 
+  </tbody>
+</table>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+{% block content%}
+  <div class="row justify-content-center align-items-center">
+<div class="card">
+	<span class="border border-info">
+
+
+<div class="card-body">
+<h5><b>Iniciar sesión:</b></h5>
+<p></p>
+<div>
+	
+</div>
+
+<form method="POST">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit" class = "btn-sm btn-info">Login</button>
+</form>
+
+<hr />
+<a href="/register">Registrar usuario:</a>	
+</span>	
+</div>
+</div>
+
+
+
+
+{% endblock %}

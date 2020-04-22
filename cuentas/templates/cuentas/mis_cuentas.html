@@ -1,0 +1,76 @@
+{% extends 'cuentas/base.html' %}
+{% load static %}
+{% block content%}
+
+
+
+<div class="card" >
+ <span class="border border-info">
+  <div class="card-body">
+    <div class="card-title"> 
+   
+    Estas son tus cuentas <b>{{request.user.first_name}}</b>: 
+    <p class="card-text"> <div class="card-body">
+ <div class="shadow p-3 mb-5 bg-white rounded"> 
+  
+</table>
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+   
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Número:</th>
+      <th scope="col">Saldo:</th>
+      <th scope="col">Ver detalle</th>
+      <th scope="col">Realizar transferencia</th>
+    </tr>
+   {% for cuenta in mis_cuentas %} 
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td class>{{ cuenta.id }} </td>
+      <td class="text-right"> {{ cuenta.saldo }} €</td>
+      <td class="text-right">  <a class="btn-sm btn-info" href="/mis_movimientos/{{cuenta.id}} ">  
+      
+      VER    </td>
+      <td class="text-right">  <a class="btn-sm btn-info" href="/transferencias/{{cuenta.id}} "> TRANSFERENCIA</td> 
+     
+  
+    </tr>
+    
+      {% endfor %}
+
+
+  </tbody>
+</table>
+   
+ 
+
+ 
+	  	    
+   	<p></p>
+  
+  </div>	
+</div>
+
+<div class="card">
+  <div class="card-body">
+    Tus contratos.
+  </div>
+</div>
+
+<div class="card">
+<span class="border border-success">
+  <div class="card-body">
+    Tus notificaciones. 
+  </div>	
+</span>
+
+</div>
+
+
+
+
+{% endblock %}
