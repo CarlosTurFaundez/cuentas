@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 from .models import Cuenta, Transferencia
 
 # Extendemos del original
@@ -14,34 +15,17 @@ class Registro(UserCreationForm):
         model = User
         fields = ["username", "first_name", "last_name" ,"password1", "password2"]
 
+
 class TransferenciaForm(forms.ModelForm):
+    importe=forms.DecimalField( min_value=0.01)
+
     class Meta:
-        model = Transferencia
-        fields = [
-        	
-        	'importe', 
-        	'concepto', 
-        	'cuenta_ordenante',
-        	'cuenta_beneficiario',
-        	'ordenante', 
-        	'beneficiario'
-        	      ]
-        labels={
-              
-              'importe': 'Importe:',
-              'concepto': 'Concepto:',
-              'cuenta_ordenante':'Cuenta ordenante:',
-              'cuenta_beneficiario':'Cuenta beneficiaria:',
-              'ordenante':'Ordenante:',
-              'beneficiario':'Beneficiario:'
-              }
-        widgets={
-        	  
-        	  'importe': forms.NumberInput(),
-        	  'concepto': forms.TextInput(),
-        	  'cuenta_ordenante': forms.Select(),
-        	  'cuenta_beneficiario': forms.Select(),
-        	  'ordenante': forms.Select(),
-        	  'beneficiario': forms.Select(),
-        	   }
-    
+        model=Transferencia
+        fields ='__all__'
+        
+     
+
+        
+        
+     
+   

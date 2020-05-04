@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.db.models import Count
 from django.db.models import Q
 from .models import Cuenta, Transferencia
@@ -18,7 +18,7 @@ import uuid
 def home(request):
     # Si estamos identificados devolvemos la portada
     if request.user.is_authenticated:
-        return render(request, "cuentas/home.html")
+        return render(request, "cuentas/mis_cuentas.html")
 
     # En otro caso redireccionamos al login
     return redirect('/login')
@@ -36,11 +36,29 @@ def mi_usuario_cuentas(request):
 #Esta es la vista para ver los movimientos de una concreta cuenta del usuario activo.
 
 def mi_cuenta_detalle (request, id): 
-    if request.user.is_authenticated: 
-       
+    if request.user.is_authenticated:
+        usuario=request.user 
         mis_transferencias =Transferencia.objects.filter(Q(cuenta_ordenante=id)|Q(cuenta_beneficiario=id)).order_by('fecha')
-    return render(request, 'cuentas/mis_movimientos.html',{'mis_transferencias':mis_transferencias})
+        esta_cuenta=Cuenta.objects.filter(id=id)  
+        context ={'mis_transferencias':mis_transferencias,'esta_cuenta':esta_cuenta}
+    return render(request, 'cuentas/mis_movimientos.html',context=context)
 
+# View para forms de transferencia
+@login_required
+def transferencia(request, id):
+    esta_cuenta= Cuenta.objects.get(id=id)
+    
+    form = TransferenciaForm()
+    if request.method == 'POST':
+        form = TransferenciaForm(data =request.POST)
+        if form.is_valid():
+            form.save(commit=False) 
+            
+            form.save()
+            return redirect('/mis_cuentas')
+
+    context = {'form':form, 'esta_cuenta':esta_cuenta}
+    return render(request, 'cuentas/transferencias.html', context=context)
 
 
     # Creamos el formulario de autenticación vacío
@@ -90,21 +108,10 @@ def login(request):
            
 
     # Si llegamos al final renderizamos el formulario
-    return render(request, "cuentas/login.html", {'form': form})   
+    return render(request, "cuentas/login.html", {'form': form})  
 
-class TransferenciaCrea(CreateView, LoginRequiredMixin): 
-    
-    model=Transferencia
-    form_class=TransferenciaForm
-    template_name='cuentas/transferencias.html'
-    success_url=reverse_lazy('/mis_cuentas')
 
-    
-def logout(request):
-    # Finalizamos la sesión
-    do_logout(request)
-    # Redireccionamos a la portada
-    return redirect('/home')
+def banco_central(request):
+     return render(request, 'cuentas/banco_central.html')
 
-def en_marcha(request):
-    return render(request,"cuentas/en_marcha.html")
+

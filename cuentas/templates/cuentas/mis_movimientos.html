@@ -3,11 +3,14 @@
 {% block content%}
 
 
-{{request.user.firstname}} 
- {%if mis_transferencias%}
-<div class="container"> Movimientos de la cuenta <b>:{{request.user.name}}</b>
-{{request.user.firstname}} 
-{%endif%}
+
+
+<div class="container"><b>{{request.user.first_name}},</b> estos son los movimientos de la cuenta número 
+{%for c in esta_cuenta%}
+	{{c.id}}:
+	
+ {% endfor %} 
+<p></p>
 
  </table>
 
@@ -24,6 +27,7 @@
       <th scope="col">Saldo:</th>
 
     </tr>
+    
  {%for transferencia in mis_transferencias%}
   </thead>
   <tbody>

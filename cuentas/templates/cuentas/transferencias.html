@@ -1,7 +1,27 @@
 {% extends 'cuentas/base.html' %}
 {% block content%}
-<h6><b>   Nueva transferencia ordinaria: </b> </h6>
-<p></p>
+
+
+<div class="card">
+	<span class="border border-info">
+  		<div class="card-body">
+  
+    		<p>Titular: <b> {{request.user.first_name}} {{request.user.last_name}} </b>  </p>
+			<p>Cuenta número: <b>{{esta_cuenta.id}}</b></p>
+			<hr/>
+			<p>Saldo: <b>{{esta_cuenta.saldo}} € </b></p>
+
+  		</div>	
+	</span>
+
+</div>
+
+
+<p> <b> Nueva transferencia ordinaria de la cuenta número {{esta_cuenta.id}}:</b> </p>
+
+
+	
+
 <form method="post">
 	
 	{{form.as_p}}
@@ -12,7 +32,6 @@
 
 
 </form>
-
 
 
 
